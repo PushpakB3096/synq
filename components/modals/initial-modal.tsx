@@ -18,10 +18,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from '../ui/form';
-import { Input } from '../ui/input';
-import { Button } from '../ui/button';
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
+import FileUpload from '@/components/file-upload';
 
 interface InitialModalProps {}
 
@@ -77,7 +78,21 @@ const InitialModal: React.FC<InitialModalProps> = ({}) => {
           <form className='space-y-8' onSubmit={form.handleSubmit(onSubmit)}>
             <div className='space-y-8 px-6'>
               <div className='flex items-center justify-center text-center'>
-                TODO: Image upload
+                <FormField
+                  control={form.control}
+                  name='imageUrl'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <FileUpload
+                          endpoint='serverImage'
+                          value={field.value}
+                          onChange={field.onChange}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
               </div>
 
               <FormField
