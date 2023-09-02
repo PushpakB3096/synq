@@ -2,6 +2,8 @@
 
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Dialog,
@@ -37,6 +39,7 @@ const formSchema = z.object({
 
 const InitialModal: React.FC<InitialModalProps> = ({}) => {
   const [isMounted, setIsMounted] = useState(false);
+  const router = useRouter();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -47,7 +50,15 @@ const InitialModal: React.FC<InitialModalProps> = ({}) => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    try {
+      await axios.post('/api/servers', values);
+
+      form.reset();
+      router.refresh();
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
