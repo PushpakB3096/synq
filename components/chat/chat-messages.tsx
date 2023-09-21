@@ -92,6 +92,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({
                 isUpdated={message.updatedAt !== message.createdAt}
                 socketUrl={socketUrl}
                 socketQuery={socketQuery}
+                deleted={message.deleted}
               />
             ))}
           </Fragment>
