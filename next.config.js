@@ -10,7 +10,8 @@ const nextConfig = {
   },
   images: {
     domains: ['utfs.io']
-  }
+  },
+  swcMinify: false
 };
 
 module.exports = nextConfig
