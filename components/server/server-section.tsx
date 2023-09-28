@@ -1,10 +1,12 @@
 'use client';
 
-import { ServerWithMembersWithProfiles } from '@/types';
 import { ChannelType, MemberRole } from '@prisma/client';
-import ActionTooltip from '../action-tooltip';
 import { Plus, Settings } from 'lucide-react';
+
 import { useModal } from '@/hooks/useModalStore';
+import { ServerWithMembersWithProfiles } from '@/types';
+
+import ActionTooltip from '../action-tooltip';
 
 interface ServerSectionProps {
   label: string;

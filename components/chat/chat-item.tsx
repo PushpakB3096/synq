@@ -1,22 +1,25 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Member, MemberRole, Profile } from '@prisma/client';
-import UserAvatar from '../user-avatar';
-import ActionTooltip from '../action-tooltip';
+import axios from 'axios';
 import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from 'lucide-react';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { cn } from '@/lib/utils';
-import * as z from 'zod';
+import { useParams, useRouter } from 'next/navigation';
 import qs from 'query-string';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Input } from '../ui/input';
+import * as z from 'zod';
+
+import { useModal } from '@/hooks/useModalStore';
+import { cn } from '@/lib/utils';
+
+import ActionTooltip from '../action-tooltip';
 import { Button } from '../ui/button';
 import { Form, FormControl, FormField, FormItem } from '../ui/form';
-import axios from 'axios';
-import { useModal } from '@/hooks/useModalStore';
-import { useParams, useRouter } from 'next/navigation';
+import { Input } from '../ui/input';
+import UserAvatar from '../user-avatar';
 
 interface ChatItemProps {
   id: string;

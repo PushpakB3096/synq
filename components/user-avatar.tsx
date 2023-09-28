@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+
 import { Avatar, AvatarImage } from './ui/avatar';
 
 interface UserAvatarProps {

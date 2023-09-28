@@ -1,9 +1,10 @@
 'use client';
 
+import { Video, VideoOff } from 'lucide-react';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import qs from 'query-string';
+
 import ActionTooltip from '../action-tooltip';
-import { Video, VideoOff } from 'lucide-react';
 
 interface ChatVideoButtonProps {}
 

@@ -1,11 +1,16 @@
 'use client';
 
+import { useEffect } from 'react';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { ChannelType } from '@prisma/client';
+import axios from 'axios';
+import { useParams, useRouter } from 'next/navigation';
+import qs from 'query-string';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import axios from 'axios';
-import qs from 'query-string';
-import { useParams, useRouter } from 'next/navigation';
-import { zodResolver } from '@hookform/resolvers/zod';
+
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -22,9 +27,8 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import { useModal } from '@/hooks/useModalStore';
-import { ChannelType } from '@prisma/client';
+
 import {
   Select,
   SelectContent,
@@ -32,7 +36,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '../ui/select';
-import { useEffect } from 'react';
+
 
 interface CreateChannelModalProps {}
 

@@ -1,8 +1,9 @@
 import { Menu } from 'lucide-react';
-import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
-import { Button } from './ui/button';
+
 import NavigationSidebar from './navigation/navigation-sidebar';
 import ServerSidebar from './server/server-sidebar';
+import { Button } from './ui/button';
+import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 
 interface MobileToggleProps {
   serverId: string;

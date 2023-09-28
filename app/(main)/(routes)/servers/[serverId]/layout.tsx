@@ -1,9 +1,11 @@
+import { ReactNode } from 'react';
+
+import { redirectToSignIn } from '@clerk/nextjs';
+import { redirect } from 'next/navigation';
+
 import ServerSidebar from '@/components/server/server-sidebar';
 import { currentProfile } from '@/lib/current-profile';
 import { db } from '@/lib/db';
-import { redirectToSignIn } from '@clerk/nextjs';
-import { redirect } from 'next/navigation';
-import { ReactNode } from 'react';
 
 const ServerIdLayout = async ({
   children,

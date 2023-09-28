@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3004",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.23.3",
@@ -64,6 +65,7 @@
   },
   "devDependencies": {
     "@types/uuid": "^9.0.3",
+    "eslint-plugin-import": "^2.28.1",
     "prisma": "^5.2.0"
   }
 }

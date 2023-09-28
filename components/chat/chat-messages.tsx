@@ -1,14 +1,17 @@
 'use client';
 
-import { Member, Message, Profile } from '@prisma/client';
-import ChatWelcome from './chat-welcome';
-import { useChatQuery } from '@/hooks/use-chat-query';
-import { Loader2, ServerCrash } from 'lucide-react';
 import { Fragment, useRef, ElementRef } from 'react';
-import ChatItem from './chat-item';
+
+import { Member, Message, Profile } from '@prisma/client';
 import { format } from 'date-fns';
-import { useChatSocket } from '@/hooks/use-chat-socket';
+import { Loader2, ServerCrash } from 'lucide-react';
+
+import { useChatQuery } from '@/hooks/use-chat-query';
 import { useChatScroll } from '@/hooks/use-chat-scroll';
+import { useChatSocket } from '@/hooks/use-chat-socket';
+
+import ChatItem from './chat-item';
+import ChatWelcome from './chat-welcome';
 
 interface ChatMessagesProps {
   name: string;

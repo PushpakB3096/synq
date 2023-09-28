@@ -1,7 +1,10 @@
 'use client';
 
-import { Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
+
+import { Search } from 'lucide-react';
+import { useParams, useRouter } from 'next/navigation';
+
 import {
   CommandDialog,
   CommandEmpty,
@@ -10,7 +13,6 @@ import {
   CommandItem,
   CommandList
 } from '@/components/ui/command';
-import { useParams, useRouter } from 'next/navigation';
 
 interface ServerSearchProps {
   data: {
@@ -39,7 +41,6 @@ const ServerSearch: React.FC<ServerSearchProps> = ({ data }) => {
     type: 'channel' | 'member';
   }) => {
     setOpen(false);
-    console.log(1111, { type, open });
 
     if (type === 'member') {
       return router.push(`/servers/${params?.serverId}/conversations/${id}`);
@@ -76,32 +77,33 @@ const ServerSearch: React.FC<ServerSearchProps> = ({ data }) => {
         <kbd className='pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded-border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground ml-auto'>
           <span className='text-xs'>⌘</span>K
         </kbd>
-        <CommandDialog open={open} onOpenChange={setOpen}>
-          <CommandInput placeholder='Search all channels and members' />
-          <CommandList>
-            <CommandEmpty>No Results found</CommandEmpty>
-            {data.map(({ label, type, data }) => {
-              if (!data?.length) return null;
-
-              return (
-                <CommandGroup key={label} heading={label}>
-                  {data?.map(({ id, icon, name }) => {
-                    return (
-                      <CommandItem
-                        key={id}
-                        onSelect={() => onClick({ id, type })}
-                      >
-                        {icon}
-                        <span>{name}</span>
-                      </CommandItem>
-                    );
-                  })}
-                </CommandGroup>
-              );
-            })}
-          </CommandList>
-        </CommandDialog>
       </button>
+
+      <CommandDialog open={open} onOpenChange={setOpen}>
+        <CommandInput placeholder='Search all channels and members' />
+        <CommandList>
+          <CommandEmpty>No Results found</CommandEmpty>
+          {data.map(({ label, type, data }) => {
+            if (!data?.length) return null;
+
+            return (
+              <CommandGroup key={label} heading={label}>
+                {data?.map(({ id, icon, name }) => {
+                  return (
+                    <CommandItem
+                      key={id}
+                      onSelect={() => onClick({ id, type })}
+                    >
+                      {icon}
+                      <span>{name}</span>
+                    </CommandItem>
+                  );
+                })}
+              </CommandGroup>
+            );
+          })}
+        </CommandList>
+      </CommandDialog>
     </>
   );
 };

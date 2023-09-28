@@ -1,5 +1,22 @@
 'use client';
 
+import { useState } from 'react';
+
+import { MemberRole } from '@prisma/client';
+import axios from 'axios';
+import {
+  Check,
+  Gavel,
+  Loader2,
+  MoreVertical,
+  Shield,
+  ShieldAlert,
+  ShieldCheck,
+  ShieldQuestion
+} from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import qs from 'query-string';
+
 import {
   Dialog,
   DialogContent,
@@ -20,23 +37,9 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useModal } from '@/hooks/useModalStore';
 import { ServerWithMembersWithProfiles } from '@/types';
+
 import { ScrollArea } from '../ui/scroll-area';
 import UserAvatar from '../user-avatar';
-import { MemberRole } from '@prisma/client';
-import {
-  Check,
-  Gavel,
-  Loader2,
-  MoreVertical,
-  Shield,
-  ShieldAlert,
-  ShieldCheck,
-  ShieldQuestion
-} from 'lucide-react';
-import { useState } from 'react';
-import qs from 'query-string';
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
 
 interface MemberModalProps {}
 

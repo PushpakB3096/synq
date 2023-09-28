@@ -1,5 +1,10 @@
 'use client';
 
+import { useState } from 'react';
+
+import axios from 'axios';
+import { Check, Copy, RefreshCw } from 'lucide-react';
+
 import {
   Dialog,
   DialogContent,
@@ -7,13 +12,12 @@ import {
   DialogTitle
 } from '@/components/ui/dialog';
 import { useModal } from '@/hooks/useModalStore';
-import { Label } from '../ui/label';
-import { Input } from '../ui/input';
-import { Button } from '../ui/button';
-import { Check, Copy, RefreshCw } from 'lucide-react';
 import { useOrigin } from '@/hooks/useOrigin';
-import { useState } from 'react';
-import axios from 'axios';
+
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+
 
 interface InviteModalProps {}
 

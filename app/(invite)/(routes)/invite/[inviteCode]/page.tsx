@@ -1,7 +1,8 @@
-import { currentProfile } from '@/lib/current-profile';
-import { db } from '@/lib/db';
 import { redirectToSignIn } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
+
+import { currentProfile } from '@/lib/current-profile';
+import { db } from '@/lib/db';
 
 interface InviteCodePageProps {
   params: {
@@ -15,7 +16,7 @@ const InviteCodePage: React.FC<InviteCodePageProps> = async ({
   const profile = await currentProfile();
 
   if (!profile) {
-    redirectToSignIn();
+    return redirectToSignIn();
   }
 
   if (!inviteCode) {
@@ -44,7 +45,11 @@ const InviteCodePage: React.FC<InviteCodePageProps> = async ({
     },
     data: {
       members: {
-        create: [{ profileId: profile?.id! }]
+        create: [
+          {
+            profileId: profile?.id!
+          }
+        ]
       }
     }
   });

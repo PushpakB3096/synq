@@ -1,8 +1,10 @@
 'use client';
 
 import { Plus } from 'lucide-react';
-import ActionTooltip from '../action-tooltip';
+
 import { useModal } from '@/hooks/useModalStore';
+
+import ActionTooltip from '../action-tooltip';
 
 interface NavigationActionProps {}
 
