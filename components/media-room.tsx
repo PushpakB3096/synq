@@ -22,10 +22,22 @@ const MediaRoom: React.FC<MediaRoomProps> = ({
   const [token, setToken] = useState<string>('');
   const { user } = useUser();
 
-  useEffect(() => {
-    if (!user?.firstName || !user?.lastName) return;
+  const random4DigitNumber = () => {
+    // Generate a random number between 1000 and 9999 (inclusive)
+    return Math.floor(Math.random() * 9000) + 1000;
+  };
 
-    const name = `${user.firstName} ${user.lastName}`;
+  useEffect(() => {
+    if (
+      typeof user?.firstName == 'undefined' ||
+      typeof user?.lastName == 'undefined'
+    )
+      return;
+
+    const name = `${user.firstName ?? ''} ${
+      user.lastName ?? ''
+    } - ${random4DigitNumber()}`;
+    // adding random4DigitNumber to prevent disconnected livekit if 2 person have same name
 
     (async () => {
       try {
