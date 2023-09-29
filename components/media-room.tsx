@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import { useUser } from '@clerk/nextjs';
-import { LiveKitRoom, VideoConference } from '@livekit/components-react';
-import { Loader2 } from 'lucide-react';
+import { useUser } from "@clerk/nextjs";
+import { LiveKitRoom, VideoConference } from "@livekit/components-react";
+import { Loader2 } from "lucide-react";
 
-import '@livekit/components-styles';
+import "@livekit/components-styles";
 
 interface MediaRoomProps {
   chatId: string;
@@ -19,7 +19,7 @@ const MediaRoom: React.FC<MediaRoomProps> = ({
   chatId,
   video = false
 }) => {
-  const [token, setToken] = useState<string>('');
+  const [token, setToken] = useState<string>("");
   const { user } = useUser();
 
   const random4DigitNumber = () => {
@@ -29,13 +29,13 @@ const MediaRoom: React.FC<MediaRoomProps> = ({
 
   useEffect(() => {
     if (
-      typeof user?.firstName == 'undefined' ||
-      typeof user?.lastName == 'undefined'
+      typeof user?.firstName == "undefined" ||
+      typeof user?.lastName == "undefined"
     )
       return;
 
-    const name = `${user.firstName ?? ''} ${
-      user.lastName ?? ''
+    const name = `${user.firstName ?? ""} ${
+      user.lastName ?? ""
     } - ${random4DigitNumber()}`;
     // adding random4DigitNumber to prevent disconnected livekit if 2 person have same name
 
@@ -52,18 +52,18 @@ const MediaRoom: React.FC<MediaRoomProps> = ({
     })();
   }, [chatId, user?.firstName, user?.lastName]);
 
-  if (token === '') {
+  if (token === "") {
     return (
-      <div className='flex flex-col flex-1 justify-center items-center'>
-        <Loader2 className='h-7 w-7 text-zinc-500 animate-spin my-4' />
-        <p className='text-xs text-zinc-500 dark:text-zinc-400'>Loading...</p>
+      <div className="flex flex-1 flex-col items-center justify-center">
+        <Loader2 className="my-4 h-7 w-7 animate-spin text-zinc-500" />
+        <p className="text-xs text-zinc-500 dark:text-zinc-400">Loading...</p>
       </div>
     );
   }
 
   return (
     <LiveKitRoom
-      data-lk-theme='default'
+      data-lk-theme="default"
       serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
       token={token}
       connect

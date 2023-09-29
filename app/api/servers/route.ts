@@ -1,9 +1,9 @@
-import { MemberRole } from '@prisma/client';
-import { NextResponse } from 'next/server';
-import { v4 as uuid4 } from 'uuid';
+import { MemberRole } from "@prisma/client";
+import { NextResponse } from "next/server";
+import { v4 as uuid4 } from "uuid";
 
-import { currentProfile } from '@/lib/current-profile';
-import { db } from '@/lib/db';
+import { currentProfile } from "@/lib/current-profile";
+import { db } from "@/lib/db";
 
 export async function POST(req: Request) {
   try {
@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     const profile = await currentProfile();
 
     if (!profile) {
-      return new NextResponse('Unauthorized', { status: 401 });
+      return new NextResponse("Unauthorized", { status: 401 });
     }
 
     const server = await db.server.create({
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
         channels: {
           create: [
             {
-              name: 'general',
+              name: "general",
               profileId: profile.id
             }
           ]
@@ -40,7 +40,7 @@ export async function POST(req: Request) {
     });
     return NextResponse.json(server);
   } catch (error) {
-    console.error('[SERVERS_POST]', error);
-    return new NextResponse('Internal Error', { status: 500 });
+    console.error("[SERVERS_POST]", error);
+    return new NextResponse("Internal Error", { status: 500 });
   }
 }

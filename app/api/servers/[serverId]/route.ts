@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
-import { currentProfile } from '@/lib/current-profile';
-import { db } from '@/lib/db';
+import { currentProfile } from "@/lib/current-profile";
+import { db } from "@/lib/db";
 
 export async function PATCH(
   req: Request,
@@ -12,7 +12,7 @@ export async function PATCH(
     const { name, imageUrl } = await req.json();
 
     if (!profile) {
-      return new NextResponse('Unauthorized', { status: 401 });
+      return new NextResponse("Unauthorized", { status: 401 });
     }
 
     const server = await db.server.update({
@@ -29,7 +29,7 @@ export async function PATCH(
     return NextResponse.json(server);
   } catch (error) {
     console.log(`[SERVER_ID_PATCH]: ${error}`);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
 
@@ -41,7 +41,7 @@ export async function DELETE(
     const profile = await currentProfile();
 
     if (!profile) {
-      return new NextResponse('Unauthorized', { status: 401 });
+      return new NextResponse("Unauthorized", { status: 401 });
     }
 
     const server = await db.server.delete({
@@ -54,6 +54,6 @@ export async function DELETE(
     return NextResponse.json(server);
   } catch (error) {
     console.log(`[SERVER_ID_DELETE]: ${error}`);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    return new NextResponse("Internal Server Error", { status: 500 });
   }
 }

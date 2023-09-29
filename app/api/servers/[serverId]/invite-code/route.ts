@@ -1,8 +1,8 @@
-import { NextResponse } from 'next/server';
-import { v4 as uuid } from 'uuid';
+import { NextResponse } from "next/server";
+import { v4 as uuid } from "uuid";
 
-import { currentProfile } from '@/lib/current-profile';
-import { db } from '@/lib/db';
+import { currentProfile } from "@/lib/current-profile";
+import { db } from "@/lib/db";
 
 export async function PATCH(
   req: Request,
@@ -12,11 +12,11 @@ export async function PATCH(
     const profile = await currentProfile();
 
     if (!profile) {
-      return new NextResponse('Unauthorized', { status: 401 });
+      return new NextResponse("Unauthorized", { status: 401 });
     }
 
     if (!params.serverId) {
-      return new NextResponse('Server ID missing', { status: 400 });
+      return new NextResponse("Server ID missing", { status: 400 });
     }
 
     const server = await db.server.update({
@@ -32,6 +32,6 @@ export async function PATCH(
     return NextResponse.json(server);
   } catch (error) {
     console.log(`[SERVER_ID]: ${error}`);
-    return new NextResponse('Internal Error', { status: 500 });
+    return new NextResponse("Internal Error", { status: 500 });
   }
 }

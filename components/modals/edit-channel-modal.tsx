@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { ChannelType } from '@prisma/client';
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
-import qs from 'query-string';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ChannelType } from "@prisma/client";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import qs from "query-string";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -25,9 +25,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { useModal } from '@/hooks/useModalStore';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useModal } from "@/hooks/useModalStore";
 
 import {
   Select,
@@ -35,8 +35,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue
-} from '../ui/select';
-
+} from "../ui/select";
 
 interface EditChannelModalProps {}
 
@@ -44,9 +43,9 @@ const formSchema = z.object({
   name: z
     .string()
     .min(1, {
-      message: 'Channel name is required'
+      message: "Channel name is required"
     })
-    .refine(name => name !== 'general', {
+    .refine((name) => name !== "general", {
       message: "Channel name cannot be 'general'"
     }),
   type: z.nativeEnum(ChannelType)
@@ -56,13 +55,13 @@ const EditChannelModal: React.FC<EditChannelModalProps> = ({}) => {
   const { isOpen, onClose, type, data } = useModal();
   const router = useRouter();
 
-  const isModalOpen = isOpen && type === 'editChannel';
+  const isModalOpen = isOpen && type === "editChannel";
   const { channel, server } = data;
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
+      name: "",
       type: channel?.type || ChannelType.TEXT
     }
   });
@@ -93,8 +92,8 @@ const EditChannelModal: React.FC<EditChannelModalProps> = ({}) => {
   useEffect(() => {
     // setting values here instead of form's defaultValue because in that, the data is set before receiving the `channel` data. The modal is opened with blank values.
     if (channel) {
-      form.setValue('name', channel.name);
-      form.setValue('type', channel.type);
+      form.setValue("name", channel.name);
+      form.setValue("type", channel.type);
     }
   }, [form, channel]);
 
@@ -102,30 +101,30 @@ const EditChannelModal: React.FC<EditChannelModalProps> = ({}) => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className='bg-white text-black p-0 overflow-hidden'>
-        <DialogHeader className='pt-8 px-6'>
-          <DialogTitle className='text-2xl text-center font-bold'>
+      <DialogContent className="overflow-hidden bg-white p-0 text-black">
+        <DialogHeader className="px-6 pt-8">
+          <DialogTitle className="text-center text-2xl font-bold">
             Edit Channel
           </DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
-          <form className='space-y-8' onSubmit={form.handleSubmit(onSubmit)}>
-            <div className='space-y-8 px-6'>
+          <form className="space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="space-y-8 px-6">
               <FormField
                 control={form.control}
-                name='name'
+                name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70'>
+                    <FormLabel className="text-xs font-bold uppercase text-zinc-500 dark:text-secondary/70">
                       Channel Name
                     </FormLabel>
 
                     <FormControl>
                       <Input
                         disabled={isLoading}
-                        className='bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0'
-                        placeholder='Enter channel name'
+                        className="border-0 bg-zinc-300/50 text-black focus-visible:ring-0 focus-visible:ring-offset-0"
+                        placeholder="Enter channel name"
                         {...field}
                       />
                     </FormControl>
@@ -137,7 +136,7 @@ const EditChannelModal: React.FC<EditChannelModalProps> = ({}) => {
 
               <FormField
                 control={form.control}
-                name='type'
+                name="type"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Channel Type</FormLabel>
@@ -148,17 +147,17 @@ const EditChannelModal: React.FC<EditChannelModalProps> = ({}) => {
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger className='bg-zinc-300/50 border-0 focus:ring-0 text-black ring-offset-0 focus:ring-offset-0 capitalize outline-none'>
-                          <SelectValue placeholder='Select a channel type' />
+                        <SelectTrigger className="border-0 bg-zinc-300/50 capitalize text-black outline-none ring-offset-0 focus:ring-0 focus:ring-offset-0">
+                          <SelectValue placeholder="Select a channel type" />
                         </SelectTrigger>
                       </FormControl>
 
                       <SelectContent>
-                        {Object.values(ChannelType).map(type => (
+                        {Object.values(ChannelType).map((type) => (
                           <SelectItem
                             key={type}
                             value={type}
-                            className='capitalize'
+                            className="capitalize"
                           >
                             {type.toLowerCase()}
                           </SelectItem>
@@ -171,8 +170,8 @@ const EditChannelModal: React.FC<EditChannelModalProps> = ({}) => {
               />
             </div>
 
-            <DialogFooter className='bg-gray-100 px-6 py-4'>
-              <Button disabled={isLoading} variant={'primary'}>
+            <DialogFooter className="bg-gray-100 px-6 py-4">
+              <Button disabled={isLoading} variant={"primary"}>
                 Save
               </Button>
             </DialogFooter>

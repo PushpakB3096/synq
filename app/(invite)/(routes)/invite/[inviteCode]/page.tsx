@@ -1,8 +1,8 @@
-import { redirectToSignIn } from '@clerk/nextjs';
-import { redirect } from 'next/navigation';
+import { redirectToSignIn } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
-import { currentProfile } from '@/lib/current-profile';
-import { db } from '@/lib/db';
+import { currentProfile } from "@/lib/current-profile";
+import { db } from "@/lib/db";
 
 interface InviteCodePageProps {
   params: {
@@ -20,7 +20,7 @@ const InviteCodePage: React.FC<InviteCodePageProps> = async ({
   }
 
   if (!inviteCode) {
-    redirect('/');
+    redirect("/");
   }
 
   // checking if the user is already a part of this server

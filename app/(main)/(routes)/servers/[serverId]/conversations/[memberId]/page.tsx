@@ -1,13 +1,13 @@
-import { redirectToSignIn } from '@clerk/nextjs';
-import { redirect } from 'next/navigation';
+import { redirectToSignIn } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
-import ChatHeader from '@/components/chat/chat-header';
-import ChatInput from '@/components/chat/chat-input';
-import ChatMessages from '@/components/chat/chat-messages';
-import MediaRoom from '@/components/media-room';
-import { getOrCreateConversation } from '@/lib/conversation';
-import { currentProfile } from '@/lib/current-profile';
-import { db } from '@/lib/db';
+import ChatHeader from "@/components/chat/chat-header";
+import ChatInput from "@/components/chat/chat-input";
+import ChatMessages from "@/components/chat/chat-messages";
+import MediaRoom from "@/components/media-room";
+import { getOrCreateConversation } from "@/lib/conversation";
+import { currentProfile } from "@/lib/current-profile";
+import { db } from "@/lib/db";
 
 interface MemberIdPageProps {
   params: {
@@ -38,7 +38,7 @@ const MemberIdPage: React.FC<MemberIdPageProps> = async ({
   });
 
   if (!currentMember) {
-    redirect('/');
+    redirect("/");
   }
 
   const conversation = await getOrCreateConversation(
@@ -56,12 +56,12 @@ const MemberIdPage: React.FC<MemberIdPageProps> = async ({
     memberOne.profileId === profile.id ? memberTwo : memberOne;
 
   return (
-    <div className='bg-white dark:bg-[#313338] flex flex-col h-full'>
+    <div className="flex h-full flex-col bg-white dark:bg-[#313338]">
       <ChatHeader
         imageUrl={otherMember.profile.imageUrl}
         name={otherMember.profile.name}
         serverId={serverId}
-        type='conversation'
+        type="conversation"
       />
 
       {video ? (
@@ -72,11 +72,11 @@ const MemberIdPage: React.FC<MemberIdPageProps> = async ({
             member={currentMember}
             name={otherMember.profile.name}
             chatId={conversation.id}
-            type='conversation'
-            apiUrl='/api/direct-messages'
-            paramKey='conversationId'
+            type="conversation"
+            apiUrl="/api/direct-messages"
+            paramKey="conversationId"
             paramValue={conversation.id}
-            socketUrl='/api/socket/direct-messages'
+            socketUrl="/api/socket/direct-messages"
             socketQuery={{
               conversationId: conversation.id
             }}
@@ -84,8 +84,8 @@ const MemberIdPage: React.FC<MemberIdPageProps> = async ({
 
           <ChatInput
             name={otherMember.profile.name}
-            type='conversation'
-            apiUrl='/api/socket/direct-messages'
+            type="conversation"
+            apiUrl="/api/socket/direct-messages"
             query={{
               conversationId: conversation.id
             }}

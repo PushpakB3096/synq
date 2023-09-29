@@ -1,8 +1,8 @@
-import { MemberRole } from '@prisma/client';
-import { NextResponse } from 'next/server';
+import { MemberRole } from "@prisma/client";
+import { NextResponse } from "next/server";
 
-import { currentProfile } from '@/lib/current-profile';
-import { db } from '@/lib/db';
+import { currentProfile } from "@/lib/current-profile";
+import { db } from "@/lib/db";
 
 export async function PATCH(
   req: Request,
@@ -13,22 +13,22 @@ export async function PATCH(
     const { name, type } = await req.json();
     const { searchParams } = new URL(req.url);
 
-    const serverId = searchParams.get('serverId');
+    const serverId = searchParams.get("serverId");
 
     if (!profile) {
-      return new NextResponse('Unauthorized', { status: 401 });
+      return new NextResponse("Unauthorized", { status: 401 });
     }
 
     if (!serverId) {
-      return new NextResponse('Server ID missing', { status: 400 });
+      return new NextResponse("Server ID missing", { status: 400 });
     }
 
     if (!params.channelId) {
-      return new NextResponse('Channel ID missing', { status: 400 });
+      return new NextResponse("Channel ID missing", { status: 400 });
     }
 
-    if (name === 'general') {
-      return new NextResponse('Name cannot be general', { status: 400 });
+    if (name === "general") {
+      return new NextResponse("Name cannot be general", { status: 400 });
     }
 
     const server = await db.server.update({
@@ -49,7 +49,7 @@ export async function PATCH(
             where: {
               id: params.channelId,
               NOT: {
-                name: 'general'
+                name: "general"
               }
             },
             data: {
@@ -64,7 +64,7 @@ export async function PATCH(
     return NextResponse.json(server);
   } catch (error) {
     console.log(`[CHANNEL_ID_PATCH]: ${error}`);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
 
@@ -76,18 +76,18 @@ export async function DELETE(
     const profile = await currentProfile();
     const { searchParams } = new URL(req.url);
 
-    const serverId = searchParams.get('serverId');
+    const serverId = searchParams.get("serverId");
 
     if (!profile) {
-      return new NextResponse('Unauthorized', { status: 401 });
+      return new NextResponse("Unauthorized", { status: 401 });
     }
 
     if (!serverId) {
-      return new NextResponse('Server ID missing', { status: 400 });
+      return new NextResponse("Server ID missing", { status: 400 });
     }
 
     if (!params.channelId) {
-      return new NextResponse('Channel ID missing', { status: 400 });
+      return new NextResponse("Channel ID missing", { status: 400 });
     }
 
     const server = await db.server.update({
@@ -107,7 +107,7 @@ export async function DELETE(
           delete: {
             id: params.channelId,
             name: {
-              not: 'general'
+              not: "general"
             }
           }
         }
@@ -117,6 +117,6 @@ export async function DELETE(
     return NextResponse.json(server);
   } catch (error) {
     console.log(`[CHANNEL_ID_DELETE]: ${error}`);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    return new NextResponse("Internal Server Error", { status: 500 });
   }
 }

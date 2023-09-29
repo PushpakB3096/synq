@@ -1,16 +1,16 @@
-import { NextApiRequest } from 'next';
+import { NextApiRequest } from "next";
 
-import { currentProfilePages } from '@/lib/current-profile-pages';
-import { db } from '@/lib/db';
-import { NextApiResponseServerIo } from '@/types';
+import { currentProfilePages } from "@/lib/current-profile-pages";
+import { db } from "@/lib/db";
+import { NextApiResponseServerIo } from "@/types";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponseServerIo
 ) {
-  if (req.method !== 'POST') {
+  if (req.method !== "POST") {
     return res.status(405).json({
-      error: 'Method not allowed'
+      error: "Method not allowed"
     });
   }
 
@@ -20,15 +20,15 @@ export default async function handler(
     const { conversationId } = req.query;
 
     if (!profile) {
-      return res.status(401).json({ message: 'Unauthorized access' });
+      return res.status(401).json({ message: "Unauthorized access" });
     }
 
     if (!conversationId) {
-      return res.status(400).json({ message: 'Conversation ID Missing' });
+      return res.status(400).json({ message: "Conversation ID Missing" });
     }
 
     if (!content) {
-      return res.status(400).json({ message: 'Content missing' });
+      return res.status(400).json({ message: "Content missing" });
     }
 
     const conversation = await db.conversation.findFirst({
@@ -58,7 +58,7 @@ export default async function handler(
     });
 
     if (!conversation) {
-      return res.status(400).json({ message: 'Conversation not found' });
+      return res.status(400).json({ message: "Conversation not found" });
     }
 
     const member =
@@ -67,7 +67,7 @@ export default async function handler(
         : conversation.memberTwo;
 
     if (!member) {
-      return res.status(400).json({ message: 'Member not found' });
+      return res.status(400).json({ message: "Member not found" });
     }
 
     const message = await db.directMessage.create({
@@ -92,7 +92,7 @@ export default async function handler(
 
     return res.status(200).json(message);
   } catch (error) {
-    console.log('[DIRECT_MESSAGES_POST]', error);
-    return res.status(500).json({ message: 'Internal Error' });
+    console.log("[DIRECT_MESSAGES_POST]", error);
+    return res.status(500).json({ message: "Internal Error" });
   }
 }

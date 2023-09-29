@@ -1,4 +1,4 @@
-import { db } from '@/lib/db';
+import { db } from "@/lib/db";
 
 const findConversation = async (memberOneId: string, memberTwoId: string) => {
   try {

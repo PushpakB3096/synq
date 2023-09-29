@@ -1,24 +1,24 @@
-'use client';
+"use client";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import axios from 'axios';
-import { Plus } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import qs, { StringifiableRecord } from 'query-string';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
+import qs, { StringifiableRecord } from "query-string";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
-import { useModal } from '@/hooks/useModalStore';
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { useModal } from "@/hooks/useModalStore";
 
-import EmojiPicker from '../emoji-picker';
-import { Input } from '../ui/input';
+import EmojiPicker from "../emoji-picker";
+import { Input } from "../ui/input";
 
 interface ChatInputProps {
   apiUrl: string;
   query: Record<PropertyKey, unknown>;
   name: string;
-  type: 'conversation' | 'channel';
+  type: "conversation" | "channel";
 }
 
 const formSchema = z.object({
@@ -31,7 +31,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ apiUrl, name, query, type }) => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
-      content: ''
+      content: ""
     },
     resolver: zodResolver(formSchema)
   });
@@ -56,31 +56,31 @@ const ChatInput: React.FC<ChatInputProps> = ({ apiUrl, name, query, type }) => {
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
-          name='content'
+          name="content"
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <div className='relative p-4 pb-6'>
+                <div className="relative p-4 pb-6">
                   <button
-                    type='button'
-                    className='absolute top-7 left-8 h-[24px] w-[24px] bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1 flex items-center justify-center'
-                    onClick={() => onOpen('messageFile', { apiUrl, query })}
+                    type="button"
+                    className="absolute left-8 top-7 flex h-[24px] w-[24px] items-center justify-center rounded-full bg-zinc-500 p-1 transition hover:bg-zinc-600 dark:bg-zinc-400 dark:hover:bg-zinc-300"
+                    onClick={() => onOpen("messageFile", { apiUrl, query })}
                   >
-                    <Plus className='text-white dark:text-[#313338]' />
+                    <Plus className="text-white dark:text-[#313338]" />
                   </button>
 
                   <Input
                     disabled={isLoading}
-                    className='px-14 py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200'
+                    className="border-0 border-none bg-zinc-200/90 px-14 py-6 text-zinc-600 focus-visible:ring-0 focus-visible:ring-offset-0 dark:bg-zinc-700/75 dark:text-zinc-200"
                     placeholder={`Message ${
-                      type === 'conversation' ? name : `#${name}`
+                      type === "conversation" ? name : `#${name}`
                     }`}
                     {...field}
                   />
 
-                  <div className='absolute top-7 right-8'>
+                  <div className="absolute right-8 top-7">
                     <EmojiPicker
-                      onChange={emoji =>
+                      onChange={(emoji) =>
                         field.onChange(`${field.value} ${emoji}`)
                       }
                     />

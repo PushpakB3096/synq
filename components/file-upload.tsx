@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { FileIcon, X } from 'lucide-react';
-import Image from 'next/image';
+import { FileIcon, X } from "lucide-react";
+import Image from "next/image";
 
-import { UploadDropzone } from '@/lib/uploadthing';
+import { UploadDropzone } from "@/lib/uploadthing";
 
 interface FileUploadProps {
-  endpoint: 'messageFile' | 'serverImage';
+  endpoint: "messageFile" | "serverImage";
   value: string;
   onChange: (url?: string) => void;
 }
@@ -16,41 +16,41 @@ const FileUpload: React.FC<FileUploadProps> = ({
   onChange,
   value
 }) => {
-  const fileType = value?.split('.').pop();
+  const fileType = value?.split(".").pop();
 
-  if (value && fileType !== 'pdf') {
+  if (value && fileType !== "pdf") {
     return (
-      <div className='relative h-20 w-20'>
-        <Image fill src={value} alt='Upload' className='rounded-full' />
+      <div className="relative h-20 w-20">
+        <Image fill src={value} alt="Upload" className="rounded-full" />
         <button
-          className='absolute bg-rose-500 text-white p-1 rounded-full top-0 right-0 shadow-sm'
-          onClick={() => onChange('')}
-          type='button'
+          className="absolute right-0 top-0 rounded-full bg-rose-500 p-1 text-white shadow-sm"
+          onClick={() => onChange("")}
+          type="button"
         >
-          <X className='h-4 w-4' />
+          <X className="h-4 w-4" />
         </button>
       </div>
     );
   }
 
-  if (value && fileType === 'pdf') {
+  if (value && fileType === "pdf") {
     return (
-      <div className='relative flex items-center p-2 mt-2 rounded-md bg-background/10'>
-        <FileIcon className='h-10 w-10 fill-indigo-200 stroke-indigo-400' />
+      <div className="relative mt-2 flex items-center rounded-md bg-background/10 p-2">
+        <FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400" />
         <a
           href={value}
-          target='_blank'
-          rel='noopener noreferrer'
-          className='ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline'
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ml-2 text-sm text-indigo-500 hover:underline dark:text-indigo-400"
         >
           {value}
         </a>
         <button
-          className='absolute bg-rose-500 text-white p-1 rounded-full -top-2 -right-2 shadow-sm'
-          onClick={() => onChange('')}
-          type='button'
+          className="absolute -right-2 -top-2 rounded-full bg-rose-500 p-1 text-white shadow-sm"
+          onClick={() => onChange("")}
+          type="button"
         >
-          <X className='h-4 w-4' />
+          <X className="h-4 w-4" />
         </button>
       </div>
     );
@@ -59,7 +59,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
   return (
     <UploadDropzone
       endpoint={endpoint}
-      onClientUploadComplete={res => {
+      onClientUploadComplete={(res) => {
         onChange(res?.[0].url);
       }}
       onUploadError={(error: Error) => {

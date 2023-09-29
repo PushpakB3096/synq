@@ -1,8 +1,8 @@
-import { redirectToSignIn } from '@clerk/nextjs';
-import { redirect } from 'next/navigation';
+import { redirectToSignIn } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
-import { currentProfile } from '@/lib/current-profile';
-import { db } from '@/lib/db';
+import { currentProfile } from "@/lib/current-profile";
+import { db } from "@/lib/db";
 
 interface ServerPageProps {
   params: {
@@ -31,10 +31,10 @@ const ServerPage: React.FC<ServerPageProps> = async ({
     include: {
       channels: {
         where: {
-          name: 'general'
+          name: "general"
         },
         orderBy: {
-          createdAt: 'asc'
+          createdAt: "asc"
         }
       }
     }
@@ -42,7 +42,7 @@ const ServerPage: React.FC<ServerPageProps> = async ({
 
   const initialChannel = server?.channels[0];
 
-  if (initialChannel?.name !== 'general') {
+  if (initialChannel?.name !== "general") {
     return null;
   }
 
