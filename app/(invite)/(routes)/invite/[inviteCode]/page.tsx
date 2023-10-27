@@ -10,26 +10,23 @@ interface InviteCodePageProps {
   };
 }
 
-const InviteCodePage: React.FC<InviteCodePageProps> = async ({
-  params: { inviteCode }
-}) => {
+const InviteCodePage = async ({ params }: InviteCodePageProps) => {
   const profile = await currentProfile();
 
   if (!profile) {
     return redirectToSignIn();
   }
 
-  if (!inviteCode) {
-    redirect("/");
+  if (!params.inviteCode) {
+    return redirect("/");
   }
 
-  // checking if the user is already a part of this server
   const existingServer = await db.server.findFirst({
     where: {
-      inviteCode,
+      inviteCode: params.inviteCode,
       members: {
         some: {
-          profileId: profile?.id
+          profileId: profile.id
         }
       }
     }
@@ -41,13 +38,13 @@ const InviteCodePage: React.FC<InviteCodePageProps> = async ({
 
   const server = await db.server.update({
     where: {
-      inviteCode
+      inviteCode: params.inviteCode
     },
     data: {
       members: {
         create: [
           {
-            profileId: profile?.id!
+            profileId: profile.id
           }
         ]
       }
@@ -55,7 +52,7 @@ const InviteCodePage: React.FC<InviteCodePageProps> = async ({
   });
 
   if (server) {
-    redirect(`/servers/${server.id}`);
+    return redirect(`/servers/${server.id}`);
   }
 
   return null;
