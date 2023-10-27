@@ -2,6 +2,12 @@
 
 Synq is a real-time communication platform that aims to provide a seamless experience for communities, friends, and teams to connect and interact. It offers a range of features to facilitate communication and collaboration.
 
+![image](https://github.com/PushpakB3096/synq/assets/44138832/f67f30e2-9ab0-4d0e-a53c-dde9a5e1288b)
+![image](https://github.com/PushpakB3096/synq/assets/44138832/55b258eb-f02f-4423-90e5-d85f32cc78fd)
+![image](https://github.com/PushpakB3096/synq/assets/44138832/a2bc9e81-f295-45b7-8258-69ead8c0d2ad)
+![image](https://github.com/PushpakB3096/synq/assets/44138832/5bb11678-d97a-4563-a28f-0fad7df4764a)
+![image](https://github.com/PushpakB3096/synq/assets/44138832/79d31edf-52af-4a5a-9c75-a97851ea48f1)
+
 ## Table of Contents
 
 - [Features](#features)
